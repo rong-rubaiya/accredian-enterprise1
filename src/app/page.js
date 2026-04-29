@@ -3,6 +3,7 @@ import Stats from '@/components/Stats'
 import Clients from '@/components/Clients'
 import Edge from '@/components/Edge'
 import React from 'react'
+import DomainExpertise from '@/components/Domain'
 
 export default function page() {
   return (
@@ -19,6 +20,7 @@ export default function page() {
       <section id="accredian-edge" className="relative w-full ...">
       <Edge/>
       </section>
+      <DomainExpertise/>
     </div>
   )
 }
