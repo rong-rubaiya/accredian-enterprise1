@@ -1,6 +1,8 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Badge } from './ui/Badge';
+import { SectionHeader } from './ui/SectionHeader';
 
 const partners = [
   { name: 'Reliance', logo: '/RELIANCE.NS_BIG.png' },
@@ -19,16 +21,12 @@ export default function Partnerships() {
     <section className="w-full py-16 bg-white dark:bg-[#020617] transition-colors duration-500 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
-        <div className="flex flex-col items-center text-center mb-12 space-y-3">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/40">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-700 dark:text-blue-400">
-              Trusted Network
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-            Our Proven <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Partnerships</span>
-          </h2>
-        </div>
+       <SectionHeader
+  badgeText="Trusted Network"
+  whiteTitle="Our Proven"
+  blueTitle="Partnerships"
+  className="mb-12"
+/>
 
         <div className="relative flex overflow-hidden py-8">
           {/* Side Gradients */}

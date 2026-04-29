@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero'
 import Stats from '@/components/Stats'
 import Clients from '@/components/Clients'
+import Edge from '@/components/Edge'
 import React from 'react'
 
 export default function page() {
@@ -14,6 +15,9 @@ export default function page() {
       </section>
       <section id="clients" className="relative w-full ...">
       <Clients/>
+      </section>
+      <section id="accredian-edge" className="relative w-full ...">
+      <Edge/>
       </section>
     </div>
   )
