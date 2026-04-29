@@ -146,7 +146,7 @@ export default function SubNavbar() {
 
          <button 
   onClick={() => setIsOpen(!isOpen)} 
-  className="lg:hidden border-2 p-2 rounded-md transition-colors
+  className="lg:hidden  p-2 rounded-md transition-colors
     /* Light Mode: Dark border and icon */
     border-slate-900 text-slate-900 
     /* Dark Mode: White/Light border and icon */
