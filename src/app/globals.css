@@ -32,3 +32,26 @@
     border-color: var(--border);
   }
 }
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+@keyframes mesh-glow {
+  0% { transform: translate(-10%, -10%) rotate(0deg); }
+  50% { transform: translate(10%, 10%) rotate(180deg); }
+  100% { transform: translate(-10%, -10%) rotate(360deg); }
+}
+
+.animate-mesh {
+  animation: mesh-glow 15s ease-in-out infinite alternate;
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/80 dark:bg-[#001141]/60;
+}

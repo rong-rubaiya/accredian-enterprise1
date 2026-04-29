@@ -1,49 +1,94 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NAV_LINKS } from '@/constants/content';
 
 export default function SubNavbar() {
   const [activeTab, setActiveTab] = useState("home");
   const [theme, setTheme] = useState('light');
   const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // Mobile menu state
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Eita observer-ke scroll korar somoy ignore korte shahajjo korbe
+  const isScrollingRef = useRef(false);
 
-  // Initialize theme on mount
   useEffect(() => {
     setMounted(true);
     const savedTheme = localStorage.getItem('theme') || 
       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
     setTheme(savedTheme);
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const observerOptions = {
+      root: null,
+      // rootMargin ekhon ektu "tight" kora hoyeche jate click korle vul section dorte na pare
+      rootMargin: '-150px 0px -60% 0px', 
+      threshold: [0, 0.1],
+    };
+
+    const observerCallback = (entries) => {
+      // Jodi amra manual scroll (click) kori, tobe observer-ke ignore korbo
+      if (isScrollingRef.current) return;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          setActiveTab(id);
+          window.history.pushState(null, '', `#${id}`);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const timeoutId = setTimeout(() => {
+      NAV_LINKS.forEach((link) => {
+        const id = link.href.replace("#", "");
+        const element = document.getElementById(id);
+        if (element) observer.observe(element);
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, [mounted]);
+
+  const handleScroll = (id) => {
+    setIsOpen(false);
+    setActiveTab(id);
+    window.history.pushState(null, '', `#${id}`);
+
+    // Click korle observer-ke kichukhon bondho rakhar jonno flag
+    isScrollingRef.current = true;
+
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      // Scroll sesh hole flag abar false kore dibo
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 800); // Smooth scroll er duration er sathe mil rekhe time deya hoyeche
+    }
+  };
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
-  const handleScroll = (id) => {
-    setActiveTab(id);
-    setIsOpen(false); // Close menu on click
-    const element = document.getElementById(id);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 100,
-        behavior: "smooth",
-      });
-    }
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
   if (!mounted) return null;
@@ -52,8 +97,7 @@ export default function SubNavbar() {
     <header className="sticky top-0 z-50 w-full transition-all duration-300 border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-[#001141] backdrop-blur-xl">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12 py-4">
         
-        {/* Logo Section */}
-        <div className="flex flex-col items-start select-none">
+        <div className="flex flex-col items-start select-none cursor-pointer" onClick={() => handleScroll('home')}>
           <span className="font-black text-2xl text-blue-600 dark:text-blue-500 tracking-tighter uppercase">
             accredian
           </span>
@@ -62,7 +106,6 @@ export default function SubNavbar() {
           </span>
         </div>
 
-        {/* Desktop Navigation & Actions */}
         <div className="flex items-center gap-2 lg:gap-4">
           <nav className="hidden lg:flex items-center gap-1 mr-2">
             {NAV_LINKS.map((link) => {
@@ -85,8 +128,7 @@ export default function SubNavbar() {
             })}
           </nav>
 
-          {/* Theme Toggle Button */}
-          <button
+           <button
             onClick={toggleTheme}
             aria-label="Toggle Brightness"
             className="relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200 hover:border-gray-300 dark:bg-white/10 dark:border-white/20 dark:text-yellow-400 dark:hover:bg-white/20 dark:hover:border-white/30 active:scale-90 shadow-sm"
@@ -102,38 +144,20 @@ export default function SubNavbar() {
             )}
           </button>
 
-          {/* Hamburger Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition-colors"
-          >
+          <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              )}
+              {isOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isOpen ? "max-h-96 opacity-100 border-t border-gray-200 dark:border-slate-800" : "max-h-0 opacity-0"}`}>
+      <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isOpen ? "max-h-96" : "max-h-0"}`}>
         <nav className="flex flex-col p-4 bg-white dark:bg-[#001141]">
           {NAV_LINKS.map((link) => {
             const id = link.href.replace("#", "");
-            const isActive = activeTab === id;
             return (
-              <button
-                key={id}
-                onClick={() => handleScroll(id)}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-bold transition-colors ${
-                  isActive 
-                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" 
-                    : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
-                }`}
-              >
+              <button key={id} onClick={() => handleScroll(id)} className={`w-full text-left px-4 py-3 rounded-lg text-sm font-bold ${activeTab === id ? "text-blue-600 bg-blue-50" : "text-slate-600"}`}>
                 {link.name}
               </button>
             );
