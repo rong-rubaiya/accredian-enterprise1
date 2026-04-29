@@ -9,6 +9,8 @@ import WhoShouldJoin from '@/components/WhoShouldJoin'
 import CATFramework from '@/components/CAT'
 import HowWeDeliver from '@/components/HowWeDeliver'
 import FAQSection from '@/components/Faq'
+import Testimonials from '@/components/testimonials'
+import TrainingCTA from '@/components/TrainingCTA'
 
 
 export default function page() {
@@ -41,6 +43,11 @@ export default function page() {
       <section id="faqs" className="relative w-full ...">
         <FAQSection/>
       </section>
+      <section id="testimonials" className="relative w-full ...">
+        <Testimonials/>
+      </section>
+
+      <TrainingCTA/>
       
     </div>
   )

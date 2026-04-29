@@ -1,5 +1,7 @@
 import Navbar from "@/components/layout/navber";
 import "./globals.css";
+import Footer from "@/components/layout/footer";
+
 
 
 
@@ -17,7 +19,7 @@ export default function RootLayout({ children }) {
         <main className="min-h-screen">
           {children}
         </main>
-       
+       <Footer/>       
       </body>
     </html>
   );

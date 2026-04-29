@@ -63,7 +63,7 @@ export default function SubNavbar() {
     setActiveTab(id);
     window.history.pushState(null, '', `#${id}`);
 
-    // Click korle observer-ke kichukhon bondho rakhar jonno flag
+   
     isScrollingRef.current = true;
 
     const element = document.getElementById(id);
@@ -107,7 +107,7 @@ export default function SubNavbar() {
         </div>
 
         <div className="flex items-center gap-2 lg:gap-4">
-          <nav className="hidden lg:flex items-center gap-1 mr-2">
+          <nav className="hidden lg:flex items-center gap-1 mr-2 text-2xl">
             {NAV_LINKS.map((link) => {
               const id = link.href.replace("#", "");
               const isActive = activeTab === id;

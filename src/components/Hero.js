@@ -20,12 +20,7 @@ export default function Hero() {
             <div className="relative z-10 flex items-center justify-center lg:justify-end pr-4 lg:pr-0">
               
               {/* Floating Badge - Active Users */}
-              <div className="absolute top-4 left-4 lg:-left-8 z-20 animate-bounce-slow">
-                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-3 rounded-xl border border-white/20 dark:border-white/10 shadow-xl">
-                  <p className="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">Active Users</p>
-                  <p className="text-xl font-black text-blue-600 leading-none">10k+</p>
-                </div>
-              </div>
+             
 
               {/* Overlapping Image Gallery */}
               <div className="relative flex items-end">
