@@ -144,15 +144,33 @@ export default function SubNavbar() {
             )}
           </button>
 
-          <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-              {isOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
-            </svg>
-          </button>
+         <button 
+  onClick={() => setIsOpen(!isOpen)} 
+  className="lg:hidden border-2 p-2 rounded-md transition-colors
+    /* Light Mode: Dark border and icon */
+    border-slate-900 text-slate-900 
+    /* Dark Mode: White/Light border and icon */
+    dark:border-white dark:text-white"
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    strokeWidth={2} 
+    stroke="currentColor" 
+    className="w-6 h-6"
+  >
+    {isOpen ? (
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+    ) : (
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    )}
+  </svg>
+</button>
         </div>
       </div>
 
-      <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isOpen ? "max-h-96" : "max-h-0"}`}>
+      <div className={`lg:hidden transition-all  duration-300 overflow-hidden ${isOpen ? "max-h-96" : "max-h-0"}`}>
         <nav className="flex flex-col p-4 bg-white dark:bg-[#001141]">
           {NAV_LINKS.map((link) => {
             const id = link.href.replace("#", "");
