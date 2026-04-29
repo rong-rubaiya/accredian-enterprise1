@@ -6,6 +6,8 @@ import React from 'react'
 import DomainExpertise from '@/components/Domain'
 import CourseSegmentation from '@/components/CourseSegmentation'
 import WhoShouldJoin from '@/components/WhoShouldJoin'
+import CATFramework from '@/components/CAT'
+import HowWeDeliver from '@/components/HowWeDeliver'
 
 export default function page() {
   return (
@@ -22,9 +24,17 @@ export default function page() {
       <section id="accredian-edge" className="relative w-full ...">
       <Edge/>
       </section>
+      
       <DomainExpertise/>
       <CourseSegmentation/>
       <WhoShouldJoin/>
+
+      <section id="cat" className="relative w-full ...">
+     <CATFramework/>
+      </section>
+      <section id="how-it-works" className="relative w-full ...">
+    <HowWeDeliver/>
+      </section>
     </div>
   )
 }
