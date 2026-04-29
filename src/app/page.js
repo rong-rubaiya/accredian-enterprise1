@@ -5,6 +5,7 @@ import Edge from '@/components/Edge'
 import React from 'react'
 import DomainExpertise from '@/components/Domain'
 import CourseSegmentation from '@/components/CourseSegmentation'
+import WhoShouldJoin from '@/components/WhoShouldJoin'
 
 export default function page() {
   return (
@@ -23,6 +24,7 @@ export default function page() {
       </section>
       <DomainExpertise/>
       <CourseSegmentation/>
+      <WhoShouldJoin/>
     </div>
   )
 }
