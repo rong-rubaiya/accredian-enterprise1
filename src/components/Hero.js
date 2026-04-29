@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import EnquiryModal from './ui/Button';
 
 export default function Hero() {
   return (
@@ -67,12 +68,8 @@ export default function Hero() {
 
             {/* CTA Group */}
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-              <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 active:scale-95">
-                Enquire Now
-              </button>
-              <button className="w-full sm:w-auto bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 px-8 py-3.5 rounded-xl font-bold text-base transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                View Solutions
-              </button>
+             <EnquiryModal/>
+             
             </div>
 
             {/* Minimalist Feature List */}

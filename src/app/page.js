@@ -8,6 +8,8 @@ import CourseSegmentation from '@/components/CourseSegmentation'
 import WhoShouldJoin from '@/components/WhoShouldJoin'
 import CATFramework from '@/components/CAT'
 import HowWeDeliver from '@/components/HowWeDeliver'
+import FAQSection from '@/components/Faq'
+
 
 export default function page() {
   return (
@@ -35,6 +37,11 @@ export default function page() {
       <section id="how-it-works" className="relative w-full ...">
     <HowWeDeliver/>
       </section>
+
+      <section id="faqs" className="relative w-full ...">
+        <FAQSection/>
+      </section>
+      
     </div>
   )
 }
