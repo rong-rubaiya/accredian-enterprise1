@@ -4,6 +4,7 @@ import Clients from '@/components/Clients'
 import Edge from '@/components/Edge'
 import React from 'react'
 import DomainExpertise from '@/components/Domain'
+import CourseSegmentation from '@/components/CourseSegmentation'
 
 export default function page() {
   return (
@@ -21,6 +22,7 @@ export default function page() {
       <Edge/>
       </section>
       <DomainExpertise/>
+      <CourseSegmentation/>
     </div>
   )
 }
